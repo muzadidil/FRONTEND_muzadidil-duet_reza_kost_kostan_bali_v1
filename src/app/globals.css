@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/* Warna merek: sama dengan aplikasi Flutter (mobile/lib/theme/colors.dart) dan dengan logo (navy dan emas). */
+@theme {
+  --color-brand: #0a2a5c;
+  --color-brand-dark: #061b3e;
+  --color-brand-soft: #e3eaf6;
+  --color-brand-wash: #f0f3fa;
+  --color-gold: #e0a82e;
+  --color-gold-dark: #8a6205;
+  --color-gold-soft: #fbf3dc;
+  /* Bintang penilaian: emas yang cukup tegas di atas putih (kontras 3:1 untuk gambar), bukan emas terang merek. */
+  --color-star: #b97d07;
+
+  /* Abu-abu sedang untuk teks pendukung, sedikit lebih gelap dari bawaan Tailwind supaya tetap terbaca (4,5:1 ke atas)
+     di atas latar berwarna tipis seperti krem dan merah muda. */
+  --color-slate-500: #5a6a80;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+@layer base {
+  /* Tailwind 4 memakai warna teks sebagai warna garis bawaan, jadi setiap `border` tampil hitam tebal.
+     Dikembalikan ke abu-abu halus seperti yang dimaksud kode di seluruh situs. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-slate-200);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-slate-50);
+    color: var(--color-slate-800);
+  }
+
+  /* Tailwind 4 mengembalikan kursor tombol ke panah. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Kotak centang dan tombol pilihan memakai warna merek, bukan biru bawaan peramban. */
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--color-brand);
+  }
+
+  ::selection {
+    background: var(--color-gold-soft);
+    color: var(--color-brand-dark);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+/* Tinggi kepala situs; dipakai halaman peta supaya pas satu layar. */
+:root {
+  --header-h: calc(4rem + 1px);
+}
+
+/* ---------- Penanda peta (dipakai peta Google dan peta cadangan Leaflet) ---------- */
+
+/* Pembungkus: ujung bawah-tengah pembungkus adalah titik lokasinya. Ruang 8 px di bawah untuk ekor penanda. */
+.kos-anchor {
+  width: max-content;
+  padding-bottom: 8px;
+}
+
+/* Leaflet menaruh pojok kiri-atas di titik lokasi, jadi digeser sendiri. Google menaruh bawah-tengah. */
+.kos-anchor--leaflet {
+  transform: translate(-50%, -100%);
+}
+
+.kos-anchor--center {
+  padding-bottom: 0;
+  transform: translateY(50%);
+}
+
+.kos-anchor--center.kos-anchor--leaflet {
+  transform: translate(-50%, -50%);
+}
+
+.kos-pill {
+  position: relative;
+  display: inline-block;
+  width: max-content;
+  white-space: nowrap;
+  background: var(--color-brand);
+  color: #fff;
+  font: 700 12px/1 var(--font-sans);
+  padding: 7px 11px;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgb(6 27 62 / 0.38);
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+/* Ekor penanda. */
+.kos-pill::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 11px;
+  height: 11px;
+  background: inherit;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-radius: 0 0 3px 0;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.kos-pill--selected {
+  background: var(--color-gold);
+  color: var(--color-brand-dark);
+  transform: scale(1.14);
+}
+
+.kos-person {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px var(--color-gold), 0 3px 10px rgb(6 27 62 / 0.4);
+}
+
+.kos-place {
+  display: block;
+  filter: drop-shadow(0 3px 3px rgb(6 27 62 / 0.4));
+}
+
+/* Peta Leaflet harus punya tinggi; komponen yang memakainya memberi tinggi lewat kelas. */
+.leaflet-container {
+  font-family: inherit;
+  z-index: 0;
+}
+
+/* Menghilangkan kotak fokus ganda pada penanda peta. */
+.leaflet-marker-icon:focus {
+  outline: none;
+}
+
+/* Penanda Leaflet tidak boleh punya kotak atau bayangan bawaan. */
+.leaflet-div-icon {
+  background: transparent;
+  border: 0;
+}
