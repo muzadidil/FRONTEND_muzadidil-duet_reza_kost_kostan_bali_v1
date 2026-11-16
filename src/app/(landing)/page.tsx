@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   title: "Kosan.click | Cari kos terdekat di Bali dari titik di peta",
   description: DESKRIPSI,
   alternates: { canonical: "https://kosan.click/" },
+  // Bukti kepemilikan domain untuk Google Search Console (layar persetujuan OAuth). Jangan dihapus: Google memeriksanya
+  // terus. Kode ini bukan rahasia; ia hanya mengaitkan domain dengan akun Search Console pemilik.
+  verification: { google: "jhRebCOrIeDRHXj0jStTlDEsFcltSVOYXEi18WpytHk" },
   openGraph: {
     type: "website",
     siteName: "Kosan.click",
