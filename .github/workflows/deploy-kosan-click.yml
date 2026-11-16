@@ -1,0 +1,75 @@
+# Membangun web (ekspor statis Next.js) dan mengunggahnya ke hosting kosan.click.
+#
+# Dijalankan otomatis tiap ada push ke main yang mengubah kode web, atau manual
+# lewat tab Actions > "Deploy kosan.click" > Run workflow.
+#
+# Butuh empat RAHASIA di repo (Settings > Secrets and variables > Actions >
+# New repository secret). Jangan menulisnya di berkas ini; repo ini PUBLIK.
+#   FTP_SERVER      alamat FTP hosting kosan.click (hPanel > Files > FTP Accounts)
+#   FTP_USERNAME    nama pengguna FTP
+#   FTP_PASSWORD    kata sandi FTP
+#   FTP_SERVER_DIR  folder tujuan di hosting, berakhiran garis miring,
+#                   mis. /public_html/  (sesuaikan dengan akun FTP-nya)
+#
+# Build tidak butuh variabel apa pun: alamat API bawaan kode sudah
+# https://kost.rezasku.com/api (lib/api.ts) dan basis alamat kosong (akar domain).
+
+name: Deploy kosan.click
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+  # Perubahan pada berkas alur ini sengaja TIDAK memicu unggahan otomatis; jalankan
+  # manual lewat tombol di bawah untuk mengujinya.
+  workflow_dispatch:
+
+# Satu unggahan pada satu waktu; yang baru menunggu yang lama selesai
+# (membatalkan unggahan FTP di tengah jalan bisa meninggalkan situs setengah jadi).
+concurrency:
+  group: deploy-kosan-click
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Pasang dependensi
+        run: npm ci
+
+      - name: Bangun situs statis
+        run: npm run build
+
+      - name: Pastikan hasil build lengkap
+        run: |
+          test -f out/index.html
+          test -f out/cari/index.html
+          test -f out/masuk/index.html
+          test -f out/kebijakan-privasi/index.html
+
+      - name: Unggah ke hosting kosan.click
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
