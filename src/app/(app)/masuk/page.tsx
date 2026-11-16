@@ -13,7 +13,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 // Hanya jalur di situs ini yang boleh dituju setelah masuk, supaya tautan buatan orang lain tidak bisa
 // mengirim pengguna ke situs luar.
 function safeNext(value: string | null): string {
-  return value && value.startsWith("/") && !value.startsWith("//") ? value : "/";
+  return value && value.startsWith("/") && !value.startsWith("//") ? value : "/cari/";
 }
 
 function Login() {

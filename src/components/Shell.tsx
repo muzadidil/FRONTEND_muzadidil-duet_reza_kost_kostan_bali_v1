@@ -48,7 +48,7 @@ function Header() {
             <span className="text-lg font-extrabold tracking-tight text-brand">{APP_NAME}</span>
           </Link>
           <nav className="flex items-center gap-1 text-sm">
-            <NavLink href="/">Cari</NavLink>
+            <NavLink href="/cari/">Cari</NavLink>
             {user && <NavLink href="/pesanan/">Pesanan</NavLink>}
             {user && <NavLink href="/pengelola/">Pengelola</NavLink>}
             {ready && !user && (

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Beranda dan Kebijakan Privasi punya CSS sendiri (src/app/(landing) dan src/content). Tailwind tidak boleh memindai
+   berkasnya: nama seperti "ring" (kelas di HTML, juga nama variabel di TS) dikira utilitas Tailwind dan menambah
+   bayangan 1 px pada diagram lingkaran di bagian "Untuk siapa". */
+@source not "./(landing)";
+@source not "../content";
+
 /* Warna merek: sama dengan aplikasi Flutter (mobile/lib/theme/colors.dart) dan dengan logo (navy dan emas). */
 @theme {
   --color-brand: #0a2a5c;

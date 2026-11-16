@@ -82,7 +82,7 @@ const jalan = (nama) => MODE === "semua" || MODE === nama;
 try {
   if (jalan("normal")) {
     const { page, errors } = await halaman("normal");
-    await page.goto(`${WEB}/`);
+    await page.goto(`${WEB}/cari/`);
     await page.waitForSelector(".mock-gmap", { timeout: 15000 });
     ok("kunci browser ada: mesin Google dipilih (bukan Leaflet)", (await page.locator(".leaflet-container").count()) === 0);
     await page.waitForFunction(() => window.__mock.markers.filter((m) => !m.opts.gmpDraggable).length >= 3, null, { timeout: 15000 });
@@ -119,7 +119,7 @@ try {
 
   if (jalan("tolak")) {
     const { page } = await halaman("tolak");
-    await page.goto(`${WEB}/`);
+    await page.goto(`${WEB}/cari/`);
     await page.waitForSelector(".leaflet-container", { timeout: 15000 });
     ok("Google menolak kunci (gm_authFailure): beralih ke peta cadangan", true);
     ok("peta Google tidak tersisa di halaman", (await page.locator(".mock-gmap").count()) === 0);
@@ -127,7 +127,7 @@ try {
 
   if (jalan("lambat")) {
     const { page } = await halaman("lambat");
-    await page.goto(`${WEB}/`);
+    await page.goto(`${WEB}/cari/`);
     await page.waitForSelector(".mock-gmap", { state: "attached", timeout: 15000 });
     ok("peta Google dibuat tetapi gambar petanya tidak kunjung termuat: tetap tersembunyi", (await page.locator(".mock-gmap").evaluate((el) => getComputedStyle(el).visibility)) === "hidden");
     await page.waitForSelector(".leaflet-container", { timeout: 15000 });

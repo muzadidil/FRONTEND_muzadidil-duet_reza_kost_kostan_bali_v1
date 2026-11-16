@@ -36,7 +36,7 @@ export default function OrdersPage() {
       {items === null && !error && <div className="text-sm text-slate-500">Memuat...</div>}
       {items?.length === 0 && (
         <div className="rounded-xl bg-slate-50 p-6 text-center text-sm text-slate-600">
-          Belum ada pesanan. <Link href="/" className="text-brand underline">Cari kos di peta</Link> lalu ajukan PO.
+          Belum ada pesanan. <Link href="/cari/" className="text-brand underline">Cari kos di peta</Link> lalu ajukan PO.
         </div>
       )}
       {items?.map((b) => (

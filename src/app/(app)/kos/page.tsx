@@ -105,8 +105,8 @@ function Detail() {
     }
   }
 
-  if (!id) return <div className="p-6 text-sm text-slate-600">Kos tidak dipilih. <Link href="/" className="text-brand underline">Kembali ke pencarian</Link></div>;
-  if (error) return <div className="p-6 text-sm text-red-700">{error} <Link href="/" className="text-brand underline">Kembali</Link></div>;
+  if (!id) return <div className="p-6 text-sm text-slate-600">Kos tidak dipilih. <Link href="/cari/" className="text-brand underline">Kembali ke pencarian</Link></div>;
+  if (error) return <div className="p-6 text-sm text-red-700">{error} <Link href="/cari/" className="text-brand underline">Kembali</Link></div>;
   if (!kos) return <div className="p-6 text-sm text-slate-500">Memuat...</div>;
 
   const extras: string[] = [];
@@ -123,7 +123,7 @@ function Detail() {
       </div>
 
       <div className="space-y-2 px-4">
-        <Link href="/" className="text-sm text-brand">← Kembali ke peta</Link>
+        <Link href="/cari/" className="text-sm text-brand">← Kembali ke peta</Link>
         <h1 className="text-xl font-bold">{kos.name}</h1>
         <div className="flex flex-wrap items-center gap-3">
           <Stars avg={kos.rating_avg} count={kos.rating_count} />

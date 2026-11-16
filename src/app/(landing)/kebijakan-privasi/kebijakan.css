@@ -1,0 +1,85 @@
+/* Halaman Kebijakan Privasi: halaman teks sederhana, terang di tema terang dan gelap di tema gelap. Dilingkupi .kp. */
+.kp {
+  --ink: #111;
+  --muted: #555;
+  --line: #e3e3e3;
+  --gold: #8a6205;
+  --bg: #fff;
+  flex: 1 0 auto;
+  width: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.65 var(--font-jakarta), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  .kp {
+    --ink: #f2f2f2;
+    --muted: #b5b5b5;
+    --line: #333;
+    --gold: #fec407;
+    --bg: #000;
+  }
+}
+html:has(.kp) {
+  background: #000;
+}
+@media (prefers-color-scheme: light) {
+  html:has(.kp) {
+    background: #fff;
+  }
+}
+.kp .wrap {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+.kp header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.kp header a {
+  color: inherit;
+  text-decoration: none;
+}
+.kp header .dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #fec407;
+  display: inline-block;
+}
+.kp h1 {
+  font-size: 1.7rem;
+  line-height: 1.25;
+  margin: 0 0 0.4rem;
+}
+.kp h2 {
+  font-size: 1.15rem;
+  margin: 2rem 0 0.4rem;
+}
+.kp p,
+.kp ul {
+  margin: 0 0 1rem;
+}
+.kp ul {
+  padding-left: 1.25rem;
+}
+.kp li {
+  margin: 0 0 0.35rem;
+}
+.kp a {
+  color: var(--gold);
+}
+.kp footer {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--muted);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

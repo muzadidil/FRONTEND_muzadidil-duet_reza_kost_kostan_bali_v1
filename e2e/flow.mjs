@@ -45,14 +45,14 @@ const manager = await newUser("pengelola", { width: 1280, height: 800 });
 try {
   // ---------- Pencarian ----------
   await step("beranda memuat peta dan kos", async () => {
-    await customer.goto(`${WEB}/`);
+    await customer.goto(`${WEB}/cari/`);
     await customer.waitForSelector("text=kos dalam", { timeout: 20000 });
     await customer.waitForTimeout(1500);
     await customer.screenshot({ path: `${OUT}/01-beranda-desktop.png` });
   });
 
   await step("beranda di ponsel", async () => {
-    await phone.goto(`${WEB}/`);
+    await phone.goto(`${WEB}/cari/`);
     await phone.waitForSelector("text=kos dalam", { timeout: 20000 });
     await phone.waitForTimeout(1500);
     await phone.screenshot({ path: `${OUT}/02-beranda-ponsel.png` });

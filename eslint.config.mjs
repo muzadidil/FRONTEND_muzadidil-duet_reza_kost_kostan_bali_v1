@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Skrip pembuka beranda disalin apa adanya dari berkas desain pemilik; bukan kode yang disunting di sini.
+    "src/content/**",
   ]),
 ]);
 
